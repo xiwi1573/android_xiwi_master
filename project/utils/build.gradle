@@ -1,18 +1,14 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion rootProject.COMPILE_SDK_VERSION
     buildToolsVersion rootProject.ANDROID_BUILD_TOOLS_VERSION
+
     defaultConfig {
-        applicationId "com.xiwi.androidxiwimaster"
         minSdkVersion rootProject.MIN_SDK_VERSION
         targetSdkVersion rootProject.TARGET_SDK_VERSION
         versionCode 1
         versionName "1.0"
-
-        jackOptions {
-            enabled true
-        }
     }
 
     compileOptions {
@@ -21,19 +17,13 @@ android {
     }
 
     buildTypes {
-
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
-
-    lintOptions {
-        abortOnError false // 是否忽略lint报错
-    }
 }
-
 configurations.all { strategy ->
     strategy.resolutionStrategy.force rootProject.deps.androidAnnotations, rootProject.deps.androidRecyclerView,
             rootProject.deps.androidDesignLibrary, rootProject.deps.androidSupportLibrary, rootProject.deps.junit,
@@ -46,6 +36,5 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile rootProject.deps.androidSupportLibrary
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha3'
     testCompile 'junit:junit:4.12'
 }

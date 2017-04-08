@@ -1,0 +1,67 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.COMPILE_SDK_VERSION
+    buildToolsVersion rootProject.ANDROID_BUILD_TOOLS_VERSION
+
+    defaultConfig {
+        minSdkVersion rootProject.MIN_SDK_VERSION
+        targetSdkVersion rootProject.TARGET_SDK_VERSION
+        versionCode 1
+        versionName "1.0"
+    }
+
+    compileOptions {
+        sourceCompatibility rootProject.JAVA_SOURCE_VERSION
+        targetCompatibility rootProject.JAVA_TARGET_VERSION
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+configurations.all { strategy ->
+    strategy.resolutionStrategy.force rootProject.deps.androidAnnotations, rootProject.deps.androidRecyclerView,
+            rootProject.deps.androidDesignLibrary, rootProject.deps.androidSupportLibrary, rootProject.deps.junit,
+            rootProject.deps.robolectric, rootProject.deps.mockito
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile rootProject.deps.androidSupportLibrary
+    testCompile 'junit:junit:4.12'
+    compile 'com.airbnb.android:epoxy:1.7.5'
+    annotationProcessor 'com.airbnb.android:epoxy-processor:1.7.5'
+    // appcompat v7包是必须的
+    compile 'me.yokeyword:fragmentation:0.10.3'
+    // 如果想使用SwipeBack 滑动边缘退出Fragment/Activity功能，请再添加下面的库
+    compile 'me.yokeyword:fragmentation-swipeback:0.7.9'
+    compile rootProject.deps.multidex
+    compile rootProject.deps.rxJava
+    compile rootProject.deps.rxAndroid
+    compile rootProject.deps.okHttp
+    compile rootProject.deps.okHttpLog
+    compile rootProject.deps.retrofit2
+    compile rootProject.deps.retrofit2Rxjava
+    compile(rootProject.deps.retrofit2ConvertSimpleXml) {
+        exclude group: 'xpp3', module: 'xpp3'
+        exclude group: 'stax', module: 'stax-api'
+        exclude group: 'stax', module: 'stax'
+    }
+    compile rootProject.deps.fastjson
+    compile rootProject.deps.fresco
+    compile rootProject.deps.frescoImage
+    compile rootProject.deps.glide
+    compile rootProject.deps.zxing
+    compile rootProject.deps.iconics
+    compile rootProject.deps.gson
+    compile rootProject.deps.slf4j
+    compile files('libs/tbs_sdk_thirdapp_v2.5.0.1037_36880_minsize_obfs_20161110_102536.jar')
+}
