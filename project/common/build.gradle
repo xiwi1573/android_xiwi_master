@@ -47,6 +47,8 @@ dependencies {
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'com.jakewharton.rxrelay2:rxrelay:2.0.0'
 
+    compile group: 'joda-time', name: 'joda-time', version: '2.3'
+
     compile rootProject.deps.multidex
     compile rootProject.deps.rxJava
     compile rootProject.deps.rxAndroid
